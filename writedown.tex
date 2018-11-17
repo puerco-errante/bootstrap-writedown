@@ -1,0 +1,402 @@
+\documentclass[letterpaper]{article}
+
+
+\usepackage{hyperref}
+\usepackage{feynmp-auto}
+\usepackage{tikz-feynman}
+\usepackage{slashed}
+\usepackage[vcentermath]{youngtab}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[english]{babel}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor, colortbl}
+\usepackage{longtable}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{xspace}
+\usepackage{braket}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz} 
+\usetikzlibrary{shapes,arrows,positioning,automata,backgrounds,calc,er,patterns}
+\usepackage{tikz-feynman}
+\tikzfeynmanset{compat=1.0.0}
+
+%
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=2cm, bottom=2cm]{geometry}
+\setlength{\parskip}{\baselineskip}
+\date{\today}
+
+\begin{document}
+
+\title{
+  Partial Wrapup of 1808.03212.
+  }
+\author{
+  Luviano Valenzuela Uriel Adrian
+}
+
+%%Cuántica
+\newcommand{\inty}{\int_{-\infty}^{\infty}} 
+\newcommand{\Lag}{\mathcal{L}} 
+\newcommand{\Id}{\mathbb{I}} 
+\newcommand{\Tr}{\mathrm{Tr}} 
+\newcommand{\tr}{\mathrm{tr}} 
+\newcommand{\Det}{\mathrm{Det}} 
+\newcommand{\gauge}{\mathcal{A}} 
+\newcommand{\Lac}{\ensuremath{\mathbf{\hat{L}^2}}} 
+\newcommand{\La}{\ensuremath{\mathbf{\hat{L}}}} 
+\newcommand{\Ham}{\ensuremath{\hat{H}}} 
+\renewcommand{\a}{\ensuremath{(e_1)}}
+\renewcommand{\b}{\ensuremath{(e_2)}}
+\renewcommand{\c}{\ensuremath{(e_3)}}
+\newcommand\cd{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny
+CD}}}{\longleftrightarrow}}}
+\newcommand{\tmop}[1]{\ensuremath{\operatorname{#1}}}
+\newcommand{\then}{\ensuremath{\Rightarrow}}
+\newcommand{\res}{\ensuremath{\mathrm{Res}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\integral}[1]{\ensuremath{\int_{a}^{b} #1 dt}}
+%%%%%%%%%%%%%%%%%%%%
+\maketitle
+
+
+\section{Complex Tauberian Theorems for Laplace transform of spectral density.}
+
+As a motivation, the paper starts by considering the four point function for
+identical scalars of dimension $\Delta_\phi$, expanded as
+\[
+  \langle \phi(0) \phi(z,\bar z) \phi(1) \phi(\infty)\rangle
+  =
+  (z\bar z)^{-\Delta_\phi} \mathcal{G}(z,\bar z),
+\mathcal{G}(z,\bar z)
+  =
+  \sum_{\Delta,J} p_{\Delta ,J} G_{\Delta, J}
+  =
+  \int_0^\infty dE f(E) e^{-\beta} =: \mathcal{L}(\beta),
+\]
+where $\beta = -(1/2)\ln u \sim -\ln z$. Using the information from the t$-$channel, one can see that for $\beta \to 0$ 
+$\mathcal{L}(\beta) \to \sum_{\Delta_i} c_i \beta^{\Delta_i-2\Delta_\phi}$ and so, via the real Tauberian
+theorem for the Laplace transform, the integrated density must behave as
+\[
+  F(E) := \int_0^E dE' f(E')\to
+  \frac{E^{2\Delta_\phi}}{\Gamma(2\Delta_\phi +1)}
+  (1+ (\ln E) ^{-1}).
+\]
+On the other hand, considering $\beta$ to run over the the complex unit circle
+(which, according to the authors, amounts to taking $z$ away from the real line)
+we can use the complex Tauberian Theorem which gives the following estimate for
+each moment of the distribution $f(E)$:
+
+\[
+  F_m(E) := \int_0^E dE'\frac{(E-E')^{m-1} }{(m-1)!} f(E')
+  \to
+  E^{2\Delta_\phi}
+  \left (\sum_{\Delta_i<m}
+  \frac{E^{m-1 -\Delta_i}}{\Gamma(2\Delta_\phi -\Delta_i +m)}
+E ^{-1} \right).
+\]
+
+It is important to note that this implies that including more operators in the t
+channel, while futile for the real estimate, is highly relevant in the complex
+one, as long as we consider high enough moments.
+
+\section{Real deal}
+
+\subsection{Harmonic Analysis trickery.}
+Given the partial wave decomposition for the group $SO(d+1,1)$ we have
+\begin{equation}
+  \label{eq:def-pw}
+  \sum_{\Delta,J} P_{\Delta,J} G_{\Delta,J}=
+  \sum_{J}\int_{\frac{d}{2} }^{\frac{d}{2}
+  +i\infty}\frac{d\Delta}{2\pi i} c_{J}(\Delta)F_{\Delta,J}
+  =
+  \sum_{J}\int_{\frac{d}{2} -i\infty}^{\frac{d}{2}
+  +i\infty}\frac{d\Delta}{2\pi i} c_{J}(\Delta)K_{J,\Delta} G_{\Delta,J},
+\end{equation}
+where $F_{\Delta,J} = K_{J,\Delta} G_{\Delta,J}$ and we used the shadow symmetry
+of $c_J$ to justify the second equality, which permits us to deform the contour
+onto the real axis, picking up the poles that would naively correspond to
+physical operators ($\mathrm{Res}_{\Delta \to
+\Delta_0} c_J(\Delta_0) = - P_{\Delta,J}/K_{J,\Delta} $).
+ However, $G_{\Delta,J}$
+has poles for $\Delta$ below the unitarity bound $\Delta \geq d-2+J$, and thus
+we must correct $c_J$ accordingly.
+Particularly, the poles that will be relevant are of the form 
+\[
+  G_{\Delta,J} \sim \frac{\alpha_J(k)}{\Delta-\Delta_i} G_{J+d,J-2k}, \quad
+  \Delta_i = J+ d -2k -1,\quad k = 1,2,\cdots ,[J/2].
+\]
+%
+Demanding that \ref{eq:def-pw} be satisfied we can see that the analytic
+structure of $c_J(\Delta)$ must be as follows
+
+\[ P_{\Delta,J}/K_{J,\Delta}
+=
+-\mathrm{Res}_{\Delta \to
+\Delta_0}
+\begin {cases}
+c_J(\Delta)& \Delta_0 \neq J+d + 2k-1\\
+c_J(\Delta) - r_{J,\Delta} \frac{K_{\Delta + 1 -d,J+d-1}}{K_{J,\Delta}}
+c_{\Delta +1-d}(J+d-1) & \Delta_0 = J+d + 2k-1 
+\end{cases}
+\]
+where $r_{J,\Delta}$ is such that $G_{\Delta,J} - r_{\Delta +1-d,J+d-1}
+G_{J+d-1,\Delta +1-d}  $ is pole free (roughly, $\res r_{J,\Delta} \sim
+\alpha_J(\Delta)$). It will be of later relevance to note that the correction on
+the second line depends on the large $J$ limit of $c_J(\Delta)$. 
+
+
+\subsection{Inversion Formula}
+Given the orthonormality of $F_{\Delta,J}$ one can project $\mathcal{G}$ onto
+this base to obtain an expression for $c_J(\Delta)$. Caron-Huot proved that for
+Lorentzian kinematics this formula can be written as
+\begin{equation}
+  c_J(\Delta)
+  =
+  \frac{1}{2} \delta_{J,even} \frac{\Gamma(\Delta - d/2)}{\Gamma(\Delta - 1)}
+  \int_0^1 d z d\bar z \mu(z,\bar z) G_{J+d-1,\Delta+1-d}
+  \mathrm{dDisc}\mathcal{G}(z, \bar z).
+  \end{equation}
+  By plugging in the contribution from the identity in the $t-$channel into the
+  prescription for calculating dDisc we get
+  \[
+    \mathrm{dDisc} \left( \frac{z\bar z}{(1-z)(1-\bar z)}\right)^{\Delta_\phi}
+    =2\sin^2 (\pi \Delta_\phi)\left( \frac{z\bar z}{(1-z)(1-\bar
+    z)}\right)^{\Delta_\phi}
+  \]
+  and thence recover the generalized free theory (GFF) expression for the
+  coefficient density
+  \[
+  c_J(\Delta)
+  =
+  gamma stuff
+  \]
+  whose large $|\delta|$ limit (via the Stirling approximation) for $0<\mathrm{arg}\Delta<\pi$ is
+  \[
+  c_J(\Delta)
+  =
+  d_J (-i\Delta)^{4\delta_\phi -3}, \quad
+\delta_\phi = \Delta_\phi - \frac{d-2}{2}
+  \]
+  and $d_J$ is a numerical prefactor. The large $J$ limit will also prove to be
+  relevant, and reads ($J$ is always even for identical scalars)
+  \[
+  c_J(\Delta)
+  =
+  b_J J^{4\delta_\phi + \frac{d}{2} -4}.
+  \]
+  This information sufices to write a dispersion relation for $c_J(\Delta)$
+  \[
+    c_J(\Delta)
+    =
+    \int_C \frac{d\Delta'}{2\pi i } \frac{c_J(\Delta')}{\Delta' - \Delta}.
+  \]
+  For $\delta_\phi <3/4$ we can drop the arcs at infinity that come from the
+  usual manipulations of the controur $C$. Otherwise, we must take enough
+  derivatives with respect to $\Delta '$ (substractions). Through this standard
+  procedure, we can write
+  \[
+    c_J\left(\frac{d}{2} +  i\nu\right)
+    =
+    \int_0^\infty d\nu' \frac{2\nu'}{\nu'^2 + \nu^2} \rho^{OPE+extra}_J
+    \left(\frac{d}{2} +  \nu'\right),
+  \]
+  where
+  \begin{equation}
+    \rho^{OPE+extra}_J \left(\frac{d}{2} +  \nu'\right) = -\sum_{poles} \delta (\Delta -
+    \Delta_{pole}) \res_{\Delta \to \Delta_{pole}} c_J(\Delta)
+  \end{equation}
+  is defined as the collection of all the residues of $c_J$, both physical and
+  kinematical. Thus, it is helpful to write
+
+  \[
+    c_J\left(\frac{d}{2} +  i\nu\right)
+    +\mathrm{extra}
+    =
+    \int_0^\infty d\nu' \frac{2\nu'}{\nu'^2 + \nu^2} \rho^{OPE}_J
+    \left(\frac{d}{2} +  \nu'\right)
+  \]
+  instead. In this expression one can see that the $s-$channel information is
+  contained in $\rho^{OPE}$ while one could use  the $t-$channel contributions
+  to calculate some limits of the $c_J$ in the LHS. $\mathrm{extra}$ will turn
+  out to have both a part which can be calculated from the $t-$channel info,
+  while another piece will be non universal in general.
+
+  \subsection{How to deal with $\mathrm{extra}$.}
+  Given that the form of $r_J,\Delta$ is known we can explicitly calculate the
+  residues that compose $\mathrm{extra}$. They can be then written as
+  \[
+    \mathrm{extra} = 
+    \sum_{n=odd} E_n \frac{2 \nu_n }{\nu^2 + \nu_n^2} c_{J+n+1} (J+d-1),\quad
+    E_n = \frac{1}{n+1} \left[\frac{\Gamma(n/2 + 1)}{\Gamma(-n/2)\Gamma(n+1)}\right]^2
+   \frac{(J+1)_{n+1}}{(J+d/2)_{n+1}}
+   ,\quad
+   \nu_n = J + \frac{d}{2} +n.
+  \]
+Now, to disentangle the contribution from each operator $\chi$ in the $t-$channel one
+can rewrite
+\[ E_n = 
+\sum_\chi n^{\gamma_\chi -1}\sum_j \frac{e_j^{(\chi)}}{n^j} =:\sum_\chi E_n
+^{\chi}       .
+\]
+For example, in this case $\gamma_{\hat 1} = 4\delta_\phi -2$ and
+\[
+e_j^{(\hat 1)}
+=
+2^{-\gamma_{\hat 1} +2J +d +1} \frac{\Gamma(J + d/2)\Gamma(d/2 -
+\Delta_\phi)}{\Gamma(J+1)\Gamma(\Delta_\phi)}.
+\]
+
+(\emph{Is every contribution writable in this way?})
+
+By considering this expansion, they use some clever tricks with the Lerch
+trascendent and identify to types of terms: those that go as $\nu^\gamma$ and
+generic  even integer powers of $\nu$.
+
+They also consider the contribution of a primary operator $(h,\bar h)$ of
+dimension $\Delta_\chi = (h+\bar h)/2$ and its
+descendents to the inversion formula and denote it by
+\[
+  c_J^{h,\bar h} (\Delta) = 
+  \nu^{4\delta_\phi - 3 -2\Delta_\chi }  \sum_{n=0}^\infty
+  \frac{\alpha_n^{h,\bar h}}{\nu^{2n}}.
+\]
+where the $\alpha$ coefficients can be computed by considering each member in
+the family and doing some excruciating manipulations of gamma functions in
+integrals.
+
+(\emph{not clear how to treat higher dim. operators in extra cont.})
+
+They finally arrive at the following dispersion relation at large $\nu$
+\[
+  \int_0 ^\infty d\nu' \rho_J^{OPE} \left(\frac{d}{2} + \nu'\right)
+  \frac{2\nu'\nu}{\nu'^2 + \nu^2}
+  =
+  \sum_\chi \sum_{n=0}^\infty \frac{\alpha_n^{\chi}}{\nu^{\delta_\chi + 2n}}+
+\sum_{k=1}^\infty a_k \nu^{-2k+1}, \quad
+\delta_\chi = -4\delta_\phi +2+2\Delta_\chi .
+\]
+
+The leading contribution (from the unit operator $\hat 1$) reads in this case
+\[
+  \alpha_0^{\hat 1} = d_J\left( 1 - \frac{1}{\cos 2\pi \delta_\phi} \right),
+  \quad
+  \delta_{\hat 1} = 2 -\delta_\phi.
+\]
+
+\subsection{Asymptotics and Tauberian theorems.}
+Assuming that the polynomial behaviour emerges as soon as $Im[\Delta] >
+|\Delta|^{\epsilon}$ for $|\Delta| >>1$ and $\epsilon$ arbitrarily small, they
+use the Tauberian Theorem for the Stieltjes transform to relate the moments of
+$\rho^{OPE}$ to the asymptotics derived in previous sections. Arriving at the
+formula (5.3)
+\[
+  F_m^J(\nu) = \sum_i \alpha_i \beta_m(\delta_i)\nu^{m-\delta_i-1} +
+  \sum_{k=1}^m \frac{\nu^{m-k}}{(m-k)!} + O(\nu^{\delta_{\hat 1} -1}),
+\]
+where one must note that the non universal integer powers (second term on the
+RHS) are present up to the order of the moment considered, the succesive terms
+being negligible compared to the error. Furthermore, they consider the following
+linear combination
+\[
+  G_{m,k}^J = F^J_m + p_1 \nu F^J_{m-1} + \cdots + p_{m-k} \nu^k F^J_{m-k},
+\]
+where $\{p_i\}$ are chosen such that $k$ of the $b_i$ cancel and only $m-k$ such terms
+are present. The general result is summarized in eq. (5.11).
+
+\[
+  G_{m,k}^J = \sum_i\left(\frac{\cos \pi\delta_i/2}{\pi} \frac{\Gamma(1-m)
+  \Gamma(k-\delta_i)}{\Gamma(1+k-m) \Gamma(m-\delta_i)}\right) \alpha_i
+  \nu^{m-1-\delta_i} + b_{k+1} \nu^{m-k-1} +\cdots + b_m +
+  O(\nu^{k-\delta_{\hat 1} -1}).
+\]
+
+\subsection{Examples}
+For GFF in 3d, the authors reproduce the results from the literature with an
+incredible precision. For the 2d Ising model, the agreement is quite good. In
+the case of the 3d Ising model, I couldn't understand quite well what their
+predictions are.
+
+\section{Questions?}
+\begin{itemize}
+  \item Every time a coefficient has a Gamma-function pole, the authors choose
+    the prescription of discarding it and keeping the log term. Is this
+    conventional? Justifiable?
+%
+  \item How pursuable is to check the assumed behaviour near the real axis of
+    $\Delta$?
+\end{itemize}
+
+
+\section{Filling in the gaps.}
+
+\subsection{Tauberian theorem for the Stieltjes transform and its application to
+dispersion relations for the OPE.}
+The Tauberian Theorem for the Stieltjes states that given two positive, even
+functions $\rho(\nu)$, $\phi(\nu)$ whose Stieltjes transforms are related by
+\begin{equation}
+  \int_\infty^\infty d\nu \frac{\rho(\nu)}{\nu - z}
+  -
+  \int_\infty^\infty d\nu \frac{\phi(\nu)}{\nu - z}
+  =
+  R(z),
+\end{equation}
+with $R(z)$ analytic for $z\in G$ and $G = \{ z = x+ iy | |y|\geq\Lambda(x)\}$
+with $\Lambda(x)$ a sufficiently smooth function and $R(z) = O(|z|^{\omega})$
+($\omega$ as defined below the next equation)
+when $z\to \infty$, satisfy the following relation ($y:=\Lambda(x)$)
+
+\begin{equation}
+  F_m(x)
+  :=
+  \int_\infty^\infty \frac{dx (x-\nu)}{(m-1)!} \rho(x)
+  =
+  \Phi_m(x)
+  +
+  \sum_{k=1}^m \frac{ b^k x^{m-k}}{(m-k)!},
+  +O(y^m (x^{m-\omega} + \phi(x)) + x^{-1} y^{m+1}|\phi(-x)|)
+\end{equation}
+where the $b_k$ are defined in terms of $R(z)$, which must have an asymptotic
+behaviour satisfying $\omega >m$.
+
+This is done by integrating on a clever contour to approximate the Stieltjes
+Kernel by a step function and then approximating the remainder.
+
+To match with the situation discussed in the paper, they have to correct some
+approximations for the case where $\rho(\nu)$ is uneven (since $\rho \sim \delta
+(\nu) c_J(\nu)$), which 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  \end{document}
