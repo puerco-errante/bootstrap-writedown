@@ -1,0 +1,883 @@
+\documentclass[10pt,a4paper]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{braket}
+\usepackage[spanish]{babel}
+\usepackage{caption}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{slashed}
+\usepackage{feynmf}
+\usepackage[backend=bibtex, style=authortitle]{biblatex}
+\bibliography{bibICTP.bib}
+
+\newcommand{\dLg}{\ensuremath{\mathcal{L}}}
+\begin{document}
+\newcommand{\Id}{\mathbb{I}} 
+\newcommand{\wf}{\Ket{\psi}} 
+\newcommand{\num}{\ensuremath{\hat{n}}}
+\newcommand{\Lac}{\ensuremath{\mathbf{\hat{L}^2}}} 
+\newcommand{\Lag}{\mathcal{L}} 
+\newcommand{\Ham}{\ensuremath{\hat{H}}} 
+\newcommand{\Tr}{\mathrm{Tr}} 
+\title{
+  \it{Conformal Bootstrap:} La magia de la simetría.
+}
+\author{ 
+  Luviano Valenzuela Uriel Adrián}
+\institute{
+  International School for Advanced Studies (SISSA)\\
+	Trieste, Italia.}
+\date{6 de diciembre de 2018.}
+\begin{frame}
+\titlepage
+\end{frame} 
+
+\begin{frame}{Menú}
+\tableofcontents
+\end{frame}
+\section{Introducción.}
+\begin{frame}{\secname}
+  \begin{itemize}
+    \item Las teorías de campos conformes (CFT) tienen una gran cantidad de
+      aplicaciones.
+
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Álgebra de SUSY: propiedades y espectro de materia.}
+\label{sec:susy-alg}
+\subsection{Grupo de Lorentz.}
+\begin{frame}{ \subsecname} 
+  Recordemos una transformación general de Poincaré:
+\[
+  x^\mu \to x'^\mu = \Lambda^\mu_\nu x^\nu + a^\mu,\quad 
+  \Lambda^T\eta\Lambda = \eta, \quad
+\eta^{\mu\nu}=\text{diag}(1,-1,-1,-1).
+\]
+
+Su álgebra de Lie está dada por
+\begin{equation}
+  \label{equ:Lorentz_algebra}
+  \begin{aligned}
+  \left[P^\mu,P^\nu\right] &= 0\\
+    \left[M^{\mu\nu},P^\rho\right] &= i\left(P^\mu\eta^{\nu\rho} -
+  P^\nu\eta^{\mu\rho}\right)\\
+  \left[M^{\mu\nu},M^{\rho\sigma}\right] &= i\left(M^{\mu\sigma}\eta^{\nu\rho} +M^{\nu\rho}\eta^{\mu\sigma} -
+  M^{\mu\rho}\eta^{\nu\sigma} - M^{\nu\sigma}\eta^{\mu\rho} \right).\\
+  \end{aligned}
+  \end{equation}
+
+  De aquí podemos rescatar una cara más familiar (\emph{boosts} y rotaciones):
+\begin{equation}
+  \label{equ:lorentz_gens}
+  J_i = \frac{1}{2}\epsilon_{ijk}M^{jk} \quad \text{ and }\quad K_i = M_{0i}.
+  \end{equation}
+
+  
+\end{frame}
+
+%%%%%%%%%%%%%
+\begin{frame}{Representaciones.}
+  Localmente,
+  \[
+  A_i = \frac{1}{2}\left(J_i + iK_i\right) \quad \text{y} \quad  B_i = \frac{1}{2}\left(J_i
+      - iK_i\right)
+  \]
+  arman dos copias del álgebra de  $SU(2)$:
+      \[
+        \left[A_i,A_j\right]= i\sum_k \epsilon_{ijk}A_k,\;
+\left[B_i,B_j\right] =i\sum_k \epsilon_{ijk}B_k,\;
+\left[A_i,B_j\right] = 0,
+\]
+es decir,
+\[
+  SO(1,3)\sim SU(2)\oplus SU(2).
+\]
+Así, se antoja etiquetar los objetos que transforman bajo Lorentz como $(A,B)$,  $A,B \in \mathbb{Z}
+\cup \mathbb{Z} + (1/2)$. 
+
+\end{frame}
+
+\subsection{Representaciones importantes (útiles) de  $SL(2,\mathbb{C})$.}
+\begin{frame}{\subsecname}
+  \begin{itemize}
+ \item  $SO(3,1) \sim SL(2,\mathbb{C})/\mathbb{Z}_2$.
+  
+\item \emph{Espinores Izquierdos de Weyl}:
+as
+\[
+  \psi_\alpha \to \psi'_\alpha = N_\alpha^\beta \psi_\beta;\quad \alpha,\beta =
+  1,2.
+\]
+
+\item \emph{Espinores Derechos de Weyl}:
+\[
+  \psi_{\dot\alpha} \to \psi'_{\dot\alpha} = N_{\dot\alpha}^{* \,\dot\beta}
+  \psi_{\dot\beta}; \quad\dot\alpha,\dot\beta = 1,2.
+\]
+\item Representaciones contravariantes:
+\[
+  \psi^\alpha = \epsilon^{\alpha\beta} \psi_\beta \quad \text{y} \quad
+  \psi^{\dot\alpha} = \epsilon^{\dot\alpha\dot\beta} \psi_{\dot\beta}
+\]
+
+\item \emph{Ojo}: $V^\mu \in (1/2,1/2)$, $\psi^\alpha \in (1/2,0)$
+  $\Rightarrow$ Los espinores son más fundamentales (maomenos).
+  \end{itemize}
+\end{frame}
+%%%
+
+\subsection{ $SL(2,\mathbb{C})$ y sus generadores.}
+\begin{frame}{\subsecname}
+\[
+  \left( \sigma^{\mu\nu}\right)_\alpha^{\beta} = \frac{i}{2}
+  \sigma^{[\mu}
+\bar\sigma^{\nu]},\;
+%
+\left( \bar\sigma^{\mu\nu}\right)^{\dot\alpha}_{\dot\beta} = \frac{i}{2}
+  \sigma^{[\mu}
+  \bar\sigma^{\nu]},\;\sigma^\mu := (1,\sigma^i)
+\]
+\[
+  \left[\sigma^{\mu\nu},\sigma^{\rho\tau}\right] = i\left(\sigma^{\mu\tau}\eta^{\nu\rho} +\sigma^{\nu\rho}\eta^{\mu\tau} -
+  \sigma^{\mu\rho}\eta^{\nu\tau} - \sigma^{\nu\tau}\eta^{\mu\rho} \right).\]
+  
+
+  Para los espinores
+\[
+  J^{(1/2,0)}_i = \frac{1}{2} \epsilon_{ijk} \sigma^{jk} = \epsilon_{ijk}
+  \frac{i}{4}\sigma^{j}\bar\sigma^k = -\epsilon_{ijk}
+  \frac{i}{4}\sigma^{j}\sigma^k = \frac{1}{2} \sigma _i = J^{(0,1/2)}_i,
+\]
+pero
+\[
+  K^{(1/2,0)}_i = \sigma_{0i} = \frac{i}{4}\left(\sigma_{0}\bar\sigma_i -
+    \sigma_{i}\bar\sigma_0\right ) = -\frac{i}{4}\sigma_i = -\bar\sigma_{0i} =
+    -K^{(0,1/2)}_i.
+\]
+
+\end{frame}
+
+\begin{frame}{\emph{Interludio:} Convenciones y notación.}
+\[
+  \chi\psi := \chi^\alpha\psi_\alpha =
+  \epsilon^{\alpha\beta}\chi_\beta\psi_\alpha =
+  -\epsilon^{\beta\alpha}\chi_\beta\psi_\alpha = -
+  \chi_\alpha\psi^\alpha; 
+  %%%%%%%%%%%%%
+  \quad \bar\chi\bar\psi =
+  \bar\chi_{\dot\alpha}\bar\psi^{\dot\alpha} =
+  -\bar\chi^{\dot\alpha}\bar\psi_{\dot\alpha}.
+   \]
+
+   Ingenuamente, parecería que
+\[
+  \psi\psi = \epsilon^{\alpha\beta} \psi_\beta\psi_\alpha = \psi_2\psi_1 -
+  \psi_1\psi_2 = 0,
+\]
+
+pero el pedir que los componentes sean números anticonmutantes (de Grassmann) nos
+da cosas más sensatas:
+
+
+\[
+  \psi\psi = 2 \psi_2\psi_1.
+\]
+
+ Bajo conjugación
+\[
+  \psi_\alpha^\dag = \bar\psi_{\dot\alpha} \Rightarrow \psi^{\alpha \dag} = -
+  \bar\psi^{\dot\alpha}.
+\]
+
+
+Expansión de productos:
+\begin{equation}
+  \psi_\alpha\bar\chi_{\dot\alpha} = \frac{1}{2}\left(\psi\sigma_\mu\bar\chi
+  \right)\sigma^\mu_{\alpha\dot\alpha}
+  %%%
+  \quad \text{y} \quad
+  %%
+  \bar\psi^{\dot\alpha}\chi^{\alpha} = \frac{1}{2}\left(\bar\psi\bar\sigma_\mu\chi
+  \right)\bar\sigma^{\mu\dot\alpha\alpha} .
+  \label{eq:sigma}
+\end{equation}
+\[
+  \psi_\alpha\chi_\beta
+  =
+  \frac{1}{2} \epsilon_{\alpha\beta} \psi\chi
+  +
+  \frac{1}{2} \left(\psi\sigma_{\mu\nu} \chi\right)
+  \left(\sigma^{\mu\nu}\epsilon^T\right)_{\alpha\beta},\quad \quad
+  \left(\sigma^{\mu\nu}\epsilon^T\right)_{\alpha\beta} :=
+  \left(\sigma^{\mu\nu}\right)_\alpha^{\;\gamma} \epsilon_{\gamma\beta}
+\]
+\end{frame}
+
+\subsection{SUSY y su Álgebra.}
+\begin{frame}{\subsecname}
+
+En 1967, Coleman y Mandula probaron que la simetría bosónica más general que puede tener
+la matriz S (de diSpersión) de cualquier teoría física relativamente sensata era
+Poincaré $\otimes$ Simetrías Internas. Buscando sacarle la vuelta a este teorema
+se propuso una simetría fermiónica. Debido a su espín semientero, los
+generadores de esta simetría cambian la estadística de los estados en los que
+actúan, por lo que abren la puerta a nuevas y emocionantes posibilidades,
+algunas de las cuales discutiremos a continuación.
+\end{frame}
+
+\begin{frame}{Álgebras de Lie gradadas.}
+  \begin{itemize}
+    \item En física, los operadores fermiónicos satisfacen relaciones de
+      conmutación, así que debemos introducir el concepto de un álgebra gradada:
+\[
+  O_aO_b - (-1)^{\eta_a\eta_b} O_bO_a = iC^e_{ab} O_e
+\]
+\item $\eta =0$  para bosones.
+\item $\eta = 1$ para fermiones.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Álgebra de SUSY.}
+  \begin{itemize}
+    \item Generadores: $Q^A_\alpha,\bar
+Q^A_{\dot\alpha}$, $A=1,\cdots\mathcal{N}$ 
+\item Álgebra extendida (SuperPoincaré):
+  \[
+  \left[Q^A_\alpha, M^{\mu\nu} \right] = 
+\left(\sigma^{\mu\nu} \right)
+  _\alpha^\beta  Q^A_\beta, \quad
+\left[Q^A_\alpha, P^{\mu} \right] =0, \quad
+\{Q^A_\alpha, Q^B_\beta \}
+  =
+\epsilon_{\alpha\beta} Z^{AB}
+\]
+\[\{Q^A_\alpha, Q^B_{\dot\beta} \} = 2 \delta^{AB}\sigma^\mu_{\alpha\dot\beta}P^\mu\]
+
+\item Simetrías internas ($T_i$): $[T_i,Q] =0$.
+\item Simetría R: $Q'^A = U^A_BQ^B$. En particular, para SUSY sencilla:
+\[
+[Q,R] = Q, \quad[\bar Q,R] = - \bar Q.
+\]
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conociendo al Zoológico.}
+\begin{frame}{Partículas no-masivas.}
+\begin{itemize}
+  \item Si $m=0$, tomamos $p_0 = p_3 = E$ y $p_2 = p_1 = 0$:
+\[\{Q^A_\alpha, \bar Q^B_{\dot\beta} \}
+  =
+  2 \delta^{AB}2E(\sigma^0+\sigma^3)=4 E\delta^{AB}
+  \begin{pmatrix}
+    1&0\\
+    0&0
+  \end{pmatrix}_{\alpha\dot\beta}.
+\]
+
+\item Definimos
+\[
+a^A:= \frac{Q_1^A}{2\sqrt{E}},\quad
+  a^{A\dag}:= \frac{\bar Q_{\dot1}^A}{2\sqrt{E}}
+\]
+y vemos que
+$\left[a,J^3\right] = a/2$ and $\left[a^\dag,J^3\right] = -a/2$ 
+\item $a^A$ disminuye la helicidad de la partícula en $1/2$ mientras que
+$a^{A\dag}$ la aumenta.
+
+\item $\mathcal N =1$: Empecemos con $\ket{\lambda}$ tal que
+$a^\dag\ket{\lambda} = 0$. Su supercompañero es:
+$a\ket{\lambda}:=\ket{\lambda-1/2}$. 
+
+\item Si las energías que estamos considerando son mayores a la del rompimiento
+  electrodébil ($10^{11}$eV), una partícula con helicidad $\lambda$ tiene una
+  supercompañera de helicidad $\lambda -1/2$.
+\end{itemize}
+\end{frame}
+%%%%%%
+
+\begin{frame}{SUSY extendida.}
+
+Si la helicidad máxima es $\lambda$, tenemos a los siguientes amiguitos en el
+supermultiplete:
+\begin{center}
+  \begin{tabular}{c|c|c}
+    Estado & Helicidad & No. de estados distintos \\
+    \hline
+  $\ket{\lambda}$ & $\lambda$ & $\begin{pmatrix} 0\\ \mathcal{N}\end{pmatrix}$\\
+  $a^{A_1} \ket{\lambda}$ & $\lambda -\frac{1}{2}$ & $\begin{pmatrix} 1\\ \mathcal{N}\end{pmatrix}$\\
+  $a^{A_1}a^{A_2} \ket {\lambda}$ & $\lambda-\frac{2}{2}$ & $\begin{pmatrix} 2\\ \mathcal{N}\end{pmatrix}$\\
+  $a^{A_1}a^{A_2} a^{A_3}\ket {\lambda}$ & $\lambda-\frac{3}{2}$ & $\begin{pmatrix} 3\\ \mathcal{N}\end{pmatrix}$\\
+    $\vdots $&$\vdots$&$\vdots$\\
+  $a^{A_1}\cdots a^{A_\mathcal{N}}\ket {\lambda}$ &
+  $\lambda-\frac{\mathcal{N}}{2}$ & $\begin{pmatrix} \mathcal{N}\\
+  \mathcal{N}\end{pmatrix}$.\\
+\end{tabular}
+\end{center}
+Si requerimos $|\lambda|\leq 2$ entonces
+$\mathcal{N}\leq 8$.
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%MASSIVEEEEEEEEEEEEEE%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estados masivos.}
+Para $m\neq 0$ tomamos $p^0=m$ y $p^i=0$
+\[\{Q^A_\alpha, Q^B_{\dot\beta} \}
+  =
+  2 \delta^{AB}m(\sigma^0)=2 m\delta^{AB}
+  \begin{pmatrix}
+    1&0\\
+    0&1
+  \end{pmatrix}_{\alpha\dot\beta}.
+\]
+
+SUSY sencilla:
+\[
+a_\alpha:= \frac{Q_\alpha}{\sqrt{2m}},\quad
+a^{\dag}_{\dot\alpha}:= \frac{\bar Q_{\dot\alpha}}{\sqrt{2m}}
+\]
+
+Si arrancamos con espín$-j\neq 0$ $\ket{\Omega}$ aniquilado por ambos $a_\alpha$
+obtenemos
+\[a^\dag_1 \ket{\Omega} = k_1\ket{j+1/2,j_3 + 1/2}+ k_2\ket{j-1/2,j_3 +
+  1/2}
+\]\[
+a^\dag_2 \ket{\Omega} = k_3\ket{j+1/2,j_3 - 1/2}+ k_4\ket{j-1/2,j_3 -
+  1/2}
+  \]
+  \[a^\dag_1a^\dag_2 \ket{\Omega} = -a^\dag_2a^\dag_1 \ket{\Omega} \propto
+  \ket{\Omega}. \]
+
+Para $j=0$:
+\[
+  a^\dag_{1,2} \ket{\Omega} = \ket{1/2, \pm1/2}.
+\]
+\[
+  a^\dag_{1}a^\dag_2 \ket{\Omega} =- a^\dag_2 a^\dag_{1}\ket{\Omega} \sim
+  \ket{\Omega}.
+\]
+
+Definimos estados de paridad conservada
+\[
+  \ket{+} =\ket{\Omega} +  a^\dag_{1}a^\dag_2 \ket{\Omega}, \quad
+  \ket{-} =\ket{\Omega} -  a^\dag_{1}a^\dag_2 \ket{\Omega}.
+\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SUSY extendida y estados
+  BPS\footnote{Bogomol'nyi-Prasad-Sommerfield.}.}
+  
+  \begin{itemize}
+    \item Ninguna $Q^A$ se muere, así que $\Rightarrow Z^{AB} \neq 0$.
+    \item Tenemos que
+\[
+  m\geq
+  \frac{1}{2\mathcal{N}} \Tr\{\sqrt{Z^\dag Z}\}.
+\]
+\item Los estados que saturan la desigualdad son conocidos como estados BPS y se
+  comportan casi casi como si no tuvieran masa ($2^{\mathcal{N}}$ estados). \footcite{wein-susy}
+
+\item Si tomamos $Z^{AB} = 0$, todas las $Q$s juegan, así que tenemos
+  $2^{2\mathcal{N}}$ estados.
+
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Superespacio y Supercampos.}
+
+\subsection{Superespacio.}
+\begin{frame}{\subsecname}
+  \[
+    \text{Superespacio} \sim \frac{\text{SuperPoincaré}}{\text{Lorentz}}
+  \]
+  Es decir,
+  \[\{a^\mu ,
+\theta^\alpha, \bar\theta_{\dot\alpha} \}
+\sim
+    \{\omega^{\mu\nu},a^\mu ,
+\theta^\alpha, \bar\theta_{\dot\alpha} \} /\{\omega^{\mu\nu}\}  .
+\]
+
+\end{frame}
+
+%%%%%%%%%
+\begin{frame}{Supercálculo.}
+  \begin{itemize}
+    \item Sean $\theta_\alpha$ y $\bar\theta^{\dot\alpha}$, espinores de Weyl
+      con componentes anticonmutativos. Así,
+\[
+  \theta\theta := \theta^\alpha\theta _\alpha,\quad
+  \bar\theta\bar\theta := \bar\theta_{\dot\alpha}\bar\theta ^{\dot\alpha}.
+\]
+\[
+  \theta^\alpha\theta^\beta = -\frac{1}{2}\epsilon^{\alpha\beta} \theta\theta,\quad
+  \bar\theta^{\dot\alpha} \bar\theta^{\dot\beta} =
+  \frac{1}{2}\epsilon^{\dot\alpha\dot\beta} \bar\theta\bar\theta.
+\]
+\item Diferenciación:
+\[
+\frac{\partial\theta^\alpha}{\partial\theta^\beta} = - \frac{\partial\theta_\alpha}{\partial\theta_\beta}
+=
+\delta^\alpha_\beta
+,\quad \text{y} \quad
+\frac{\partial\bar\theta^{\dot\alpha}}{\partial\bar\theta^{\dot\beta}} = -\frac{\partial\bar\theta_{\dot\alpha}}{\partial\bar\theta_{\dot\beta}} =
+\delta^{\dot\alpha}_{\dot\beta}.
+\]
+
+\item Integración:
+\[
+  \int d^2\theta \theta\theta = 1 \Rightarrow d^2\theta := -\frac{1}{2}\int
+  d\theta_1 \int d\theta_2\quad \text{y} \quad \int d^2\theta d^2\bar\theta
+  \left(\theta\theta \bar\theta\bar\theta\right) = 1.
+\]
+\end{itemize}
+\end{frame}
+%%%%%%%%%%
+\subsection{Supercampo escalar.}
+\begin{frame}{\subsecname}
+  \vspace{-1em}
+\[
+  S(x^\mu, \theta_\alpha, \bar\theta_{\dot\alpha})
+  =
+  \phi(x) + \theta\psi(x) + \bar\theta\bar\chi(x) + \theta\theta M(x) +
+  \bar\theta\bar\theta N(x) + (\theta \sigma^\mu\bar\theta ) V_\mu(x) 
+\]
+\[
+ + (\bar\theta\bar\theta) \theta\rho(x) +  (\theta\theta)
+  \bar\theta\bar\lambda(x) + \theta\theta\bar\theta\bar\theta D(x).
+\]
+
+Tenemos 16 GdL fermiónicos y otros 16 bosónicos que se mezclan bajo SUSY así:
+\[
+  \begin{aligned}
+    \delta\phi &= \epsilon\psi +\bar\epsilon\bar\chi 
+     \\
+    %
+    \delta\psi &=  2\epsilon M+\sigma^\mu\bar\epsilon V_\mu+ i\sigma^\mu\bar\epsilon \partial_\mu\phi 
+ \\
+    %
+    \delta\bar\chi &= 
+    2\bar\epsilon N
+    -i\epsilon\sigma^\mu \partial_\mu\phi +\epsilon\sigma^\mu V_\mu
+     \\
+    %
+    \delta V_\mu
+    &=\frac{i}{2}\left(\partial^\nu\psi \sigma_\mu \bar\sigma_\nu \epsilon 
+    -  \bar\epsilon\bar\sigma^\nu  \sigma_\mu\partial^\nu\bar\chi\right) 
+    +
+    \epsilon\sigma_\mu\bar\lambda+ \rho\sigma_\mu\bar\epsilon
+\\
+    %
+    \delta M& = 
+    \bar\epsilon\bar\lambda
+     -\frac{ i}{2} \partial_\mu\psi\sigma^\mu \bar\epsilon
+    \\
+    %
+    \delta N  &= + \frac{i}{2}\epsilon \sigma^\mu \partial^\mu\bar\chi   
++  \epsilon\rho
+    \\
+    %
+    \delta\bar\lambda & = 2\bar\epsilon D   
+      - i \theta\sigma^\mu\bar\theta \theta\sigma^\nu\bar\epsilon \partial_\nu V_\mu
+      +i(\epsilon\sigma^\mu)\partial_\mu M
+    \\
+    %
+    \delta \rho  &=   2\epsilon D - i \theta\sigma^\mu\bar\theta \epsilon\sigma^\nu\bar\theta \partial_\nu V_\mu
+    +i(\sigma^\mu\bar\epsilon)
+    \partial_\mu N     \\
+    %
+    \delta D &=\frac{i}{2} \partial_\mu \left( \epsilon\sigma^\mu\bar\lambda -
+    \rho\sigma^\mu \bar\epsilon\right).
+  \end{aligned}
+\]
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%55
+\begin{frame}{En busca de supercampos más razonables.}
+\begin{itemize}
+  \item 16 GdL son muchos :(.
+  \item Definimos una derivada supercovariante para formular restricciones
+    compatibles con SUSY:
+\[
+  \mathcal{D}_\alpha : =  \partial_\alpha + i\sigma^\mu_{\alpha\dot\beta}
+  \bar\theta^{\dot\beta} \partial_\mu,\quad
+  %%%%
+  \mathcal{\bar D}_{\dot\alpha} : =  -\partial_{\dot\alpha} - i\theta^{\beta}\sigma^\mu_{\alpha\dot\beta}
+   \partial_\mu,
+\]
+satisface
+\[
+  \left\{\mathcal{D}_\alpha, \mathcal{Q}_\beta \right\} =0,\quad
+  \left\{\mathcal{D}_\alpha, \mathcal{D}_\beta \right\} =  \left\{\mathcal{\bar
+  D}_{\dot\alpha}, \mathcal{\bar D}_{\dot\beta } \right\} =0,\quad  
+\]
+y
+\[\left\{\mathcal{D}_\alpha, \mathcal{\bar D}_{\dot\beta }\right\} =
+  -2i\sigma^\mu_{\alpha\dot\beta} \partial_\mu.
+\]
+
+
+\end{itemize}
+\end{frame}
+\subsection{Supercampo Quiral.}
+\begin{frame}
+Si pedimos $\mathcal{\bar D}_{\dot\alpha} \Phi = 0$ obtenemos un supercampo
+quiral,
+\[
+  \Phi = \phi(y) + \sqrt{2} \theta \psi (y) + \theta \theta F(y); \quad y: = x^\mu + i \theta\sigma^\mu\bar\theta.
+\]
+Y obtenemos $4+4$ GdL que transforman como
+\[
+  \begin{aligned}
+    \delta \phi &= \sqrt{2}\epsilon \psi\\
+    \delta \psi &= \sqrt{2}i\sigma^\mu\bar\epsilon \partial_\mu\phi +
+    \sqrt{2}\epsilon F\\
+    \delta F    &= \sqrt{2}i\bar\epsilon\bar\sigma^\mu\partial_\mu \psi.
+  \end{aligned}
+\]
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Supercampo Vectorial.}
+\begin{frame}{\subsecname}
+Imponiendo $V^\dag = V$ obtenemos un supercampo real y con una especie de
+invarianza de norma:
+\[
+  V(x,\theta,\bar\theta) = 
+  (\theta\sigma^\mu\bar\theta) V_\mu(x) +
+  (\theta\theta)(\bar\theta\bar\lambda(x)) + 
+  (\bar\theta\bar\theta)(\theta\lambda(x)) +
+  \frac{1}{2}(\theta\theta\bar\theta\bar\theta) D(x).
+\]
+En este supermultiplete hay un vector (2 GdL) un campo auxiliar complejo (2 GdL)
+y un espinor complejo (4GdL). Estos grados de libertad se mezclan así bajo
+supersimetría:
+\[
+  \begin{aligned}
+    \delta V_\mu &= \epsilon \sigma_\mu \bar\lambda +
+    \lambda\sigma_\mu\bar\epsilon\\
+    %d
+    \delta \lambda &= {2}\epsilon D+
+    \frac{i}{2}\bar\sigma^\mu\sigma^\nu\bar\epsilon \partial_\mu V_\nu\\
+    \delta D    &= \frac{i}{2}\partial_\mu\left(\epsilon\sigma^\mu\bar\lambda
+    -\lambda\sigma^\mu\bar\epsilon
+  \right).
+  \end{aligned}
+\]
+\end{frame}
+
+\subsection{Construyendo un Lagrangiano supersimétrico.}
+\begin{frame}{\subsecname}
+  Para que nuestra teoría sea invariante bajo SUSY, queremos
+$\delta_\epsilon \Lag = \partial_\mu j^\mu$.
+$F$ y $D$ transforman como derivadas totales, así que proponemos
+\[
+  \Lag
+  =
+  K(\Phi,\Phi^\dag)\Big|_D + \left(W(\Phi)\Big|_F + h.c.\right),
+\]
+donde $K$ es el potencial de Kähler, una función real (simétrica en sus argumentos) y $W$ es una función
+holomorfa conocida como superpotencial.
+
+\end{frame}
+
+\section{Rompimiento de SUSY.}
+\begin{frame}{\secname}
+  \label{sec:breaking}
+  Evidentemente, nuestro universo no es supersimétrico (en el rango de energías
+  que hemos explorado), por lo que desde un punto de vista fenomenológico, es
+  indispensable proponer un mecanismo de rompimiento de SUSY.
+
+Pero, ¿\emph{cómo}?
+
+\end{frame}
+
+\subsection{Rompimiento espontáneo de SUSY.}
+\begin{frame}{\subsecname}
+Cuando el vacío de una teoría no comparte todas las simetrías del sistema
+completo, se dice que la simetría simetría se rompió espontáneamente. Esto
+equivale a pedirle al vacío que no transforme trivialmente bajo la acción de los
+generadores de la simetría en cuestión. En nuestro caso, queremos que $Q\ket{\Omega}\neq 0$.
+
+En la siguiente sección veremos cómo se logra esto.
+\begin{center}
+\includegraphics[width=0.6\linewidth]{higgs.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Rompimiento a partir del término $F$.}
+Si tenemos un supercampo quiral $\Phi$ con componentes $(\phi,\psi,F)$.
+\[
+  \begin{aligned}
+    \delta \phi &= \sqrt{2}\epsilon \psi\\
+    \delta \psi &= \sqrt{2}i\sigma^\mu\bar\epsilon \partial_\mu\phi +
+    \sqrt{2}\epsilon F\\
+    \delta F    &= \sqrt{2}i\bar\epsilon\bar\sigma^\mu\partial_\mu \psi.
+  \end{aligned}
+\]
+Para que el campo no transforme trivialmente, es necesario que
+$\braket{\psi}\neq 0$, $\braket{\partial_\mu \phi}\neq 0$ o $\braket{F}\neq 0$.
+
+La única opción invariante de Lorentz es $\braket{F}\neq 0$.
+\end{frame}
+
+\begin{frame}{Rompimiento a partir del término $D$.}
+$V$ supercampo vectorial con componentes $(V_\mu,\lambda,D)$
+Sus componentes se mezclan así:
+\[
+  \begin{aligned}
+    \delta V_\mu &= \epsilon \sigma_\mu \bar\lambda +
+    \lambda\sigma_\mu\bar\epsilon\\
+    %d
+    \delta \lambda &= {2}\epsilon D+
+    \frac{i}{2}\bar\sigma^\mu\sigma^\nu\bar\epsilon \partial_\mu V_\nu\\
+    \delta D    &= \frac{i}{2}\partial_\mu\left(\epsilon\sigma^\mu\bar\lambda -\lambda\sigma^\mu\bar\epsilon
+  \right).
+  \end{aligned}
+\]
+De nuevo, la única opción sensata es
+$\braket{D}\neq 0$.
+\end{frame}
+
+
+
+
+\subsection{Rompimiento suave de SUSY.}
+\begin{frame}{\subsecname}
+\begin{itemize}
+  \item Términos de la forma $\lambda_f H\bar f f$ o $\lambda_S H \bar H S \bar S$
+    introducen divergencias cuadráticas al calcular correcciones radiativas de
+    la masa del Higgs (Problema de la Jerarquía Electrodébil).
+  \item Una de las principales ventajas de SUSY es la cancelación ``milagrosa''
+    de estas contribuciones.
+  \item Si se propone un lagrangiano con términos explícitamente no
+    supersimétricos, es necesario que sus acolpamientos sean de dimensión de masa positiva
+    para evitar echar a perder el asunto.
+  \item Los mentados \emph{términos suaves} son de la forma
+\end{itemize}
+\[
+  \Lag_{soft} =
+  -\left( \frac{1}{2} M_a \lambda^a\lambda^a +
+    \frac{1}{6}a^{ijk}\phi_i\phi_j\phi_k
+    + \frac{1}{2}b^{ij}\phi_i\phi_j
+    + t^{i}\phi_i
+  \right) + h.c.
+  - \frac{1}{2}(m^2)^{ij}\phi_i^*\phi_j.
+\]
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%DEATH AND DESTRUCTION%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%
+\section{KKLT+ correcciones $\alpha'$: El método del Goldstino Nilpotente y su
+comparación con resultados previos.}
+\label{sec:KKLT}
+%%%%%%%%%%%%%%%
+\begin{frame}{Teoría de Cuerdas tipo IIB.}
+\begin{itemize}
+  \item Cuerdas supersimétricas orientadas. Teoría quiral ($\mathcal{N} =
+    (2,0)$).
+  \item Para ser consistente debe de vivir en 10 dimensiones espaciotemporales.
+  \item Hay que compactificar las seis dimensiones restantes para obtener
+    fenomenologías razonables (más o menos).
+  \item Todos los parámetros libres (módulos) de estas variedades se comportan
+    como campos y deben de ser estabilizados para que el modelo no prediga
+    salvajadas.
+  \item Un factor común de las teorías de cuerdas tipo II es que su límite a
+    bajas energías es algún tipo de supergravedad.
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%5
+\begin{frame}{KKLT: un repasón.}
+\begin{itemize}
+  \item En el 2003, Kachru, Kallosh, Linde and Trivedi (KKLT) lograron
+    estabilizar todos los módulos de una teoría de cuerdas tipo IIB
+    \footcite{KKLT}. Además, por
+    medio de una  $\bar D3-$ brana lograron elevar la energía del vacío a un
+    valor positivo  --como las observaciones cosmológicas lo requieren-- y
+    romper supersimetría. 
+  \item En el 2005, Choi et al \footcite{Nilles} lograron calcular los términos
+    suaves de este modelo.
+  \item En 2015, Aparicio et al. \footcite{peiper} hicieron lo mismo pero usando
+  un campo nilpotente ($XX=0$) para representar el efecto de la $\bar D -3$brana
+y considerando correcciones de orden superior provenientes de la teoría de
+cuerdas.
+\item Es interesante ver si los resultados de Choi et al. pueden ser extendidos
+  a órdenes superiores en $\alpha'$ y ver si éstos coinciden con los de Aparicio
+  et al.
+\end{itemize}
+\end{frame}
+
+\subsection{KKLT con goldstino nilpotente ($XX=0$).}\label{sec:nilpotent}
+\begin{frame}{\subsecname}
+  Potencial de Kähler:
+%
+\begin{equation}
+  \label{ka2}
+  \begin{aligned}
+    K &=-\text{Log}[2 s]-2 \text{Log}\left[\tau^{3/2}-\frac{1}{2} s^{3/2} \xi\right] 
+        +\frac{ \phi \bar \phi \alpha _0 }{\tau }\left(1-\frac{s^{3/2} \xi \alpha _1}{\tau ^{3/2}}\right)\\
+  &+\frac{ X \bar X\beta _0 }{\tau }\left(1-\frac{s^{3/2} \xi  \beta _1}{\tau
+  ^{3/2}}\right)+
+  \frac{X \bar X  \phi \bar \phi \gamma _0
+  }{\tau ^2}\left(1-\frac{s^{3/2} \xi  \gamma _1}{\tau ^{3/2}}\right),
+\end{aligned}
+\end{equation}
+donde $ T = \tau + i \psi$ y $S=s+ic$. El volumen de la variedad compacta está
+dado por
+$\mathcal{V} \sim \tau^{3/2}$ y $S$ parametriza la intensidad de las
+interacciones perturbativas entre cuerdas.
+
+Superpotencial:
+\[W = W_0+A e^{-a T}+X \rho\,.\]
+\end{frame}
+
+\begin{frame}{Potencial Escalar.}
+
+  En SUGRA, el potencial escalar se calcula como
+  \[
+    V =
+  e^K\{
+    K_{i\bar j}^{-1}D_iWD_{\bar j} W^* - 3|W|^2\}, \; 
+    K_{i \bar j} = \partial_i \partial_{ \bar j} K, \; 
+    D_i = \partial_i + \partial_i K.
+\]
+
+
+Así, a primer orden en  $\xi$ y tomando $\phi =0$, tenemos
+que la contribución de la $\bar D3-$brana es 
+
+\begin{equation}
+   \label{uplift}
+     V_{\alpha'up}=\frac{\rho ^2}{2 s \beta_0 \mathcal{V} ^{4/3}}\left[1+(1+\beta_1) \frac{ \xi
+     \left(s^{3/2} \right)}{ \mathcal{V}}\right] \,.
+ \end{equation}
+
+ el resto del potencial escalar está dado por
+\begin{equation}
+  \label{scalar}
+  \begin{aligned}
+    V _{\alpha'KKLT}&= 
+       \frac{2 a A^2 e^{-2 a \tau}}{s \mathcal{V}^{4/3}}+
+       \frac{2 a^2 A^2 e^{-2 a \tau}}{3 s \mathcal{V}^{2/3}}-
+       \frac{2 a A e^{-a \tau} W_0}{s \mathcal{V}^{4/3}}\\
+       &-
+       \frac{3 A^2 e^{-2 a \tau} \sqrt{s} \xi }{8 \mathcal{V}^3}+
+       \frac{a A^2 e^{-2 a \tau} \sqrt{s} \xi }{2 \mathcal{V}^{7/3}}\\
+       &-\frac{a^2 A^2 e^{-2 a \tau} \sqrt{s} \xi }{6 \mathcal{V}^{5/3}}+
+       \frac{3 A e^{-a \tau} \sqrt{s} W_0 \xi }{4 \mathcal{V}^3}\\
+       &-
+       \frac{a A e^{-a \tau} \sqrt{s} W_0 \xi }{2 \mathcal{V}^{7/3}}-
+       \frac{3 \sqrt{s} W_0^2 \xi }{8 \mathcal{V}^3}.
+  \end{aligned}
+\end{equation}
+\end{frame}
+
+%%%%%
+\begin{frame}{Minimizando el potencial escalar}
+  Para facilitar la tarea, podemos minimizar el potencial sin correcciones ($\xi
+  \to 0$). Así, encontramos que $\tau$ debe satisfacer
+  \begin{equation}
+  \label{min}
+    W _0= 
+    \frac{1}{3} A e^{-a \tau} (3+ 2a\tau).
+  \end{equation}
+
+  $\Rightarrow$ Para valores sensatos de $A$, $a$ y $W_0$, $\tau$ se estabiliza.
+
+\end{frame}
+
+%%%%
+
+\begin{frame}{Masas escalares}
+
+  Expandiendo $V$ a primer orden en 
+$|\hat\phi|^2$, donde $\hat \phi = \sqrt{K_{\phi\bar\phi}}\phi$, se obtienen las
+masas escalares. Así,
+  \begin{equation}
+  \label{v2}
+  V_2 = V_1 + \left[ \frac{2}{3}(V_{\alpha'KKLT} +
+    V_{\alpha'up} ) + \Theta _{\text{up} } + \Theta_{\text{up}\alpha'} +    \tilde \Theta_{\alpha'}\right] |\hat\phi|^2,
+\end{equation}
+donde
+  \begin{equation}
+  \label{masas}
+  \begin{aligned}
+    \Theta_{up} &= \frac{\rho ^2}{2 s \tau ^2 \beta _0}\left(1 +
+                   \frac{s\sqrt{s} \xi }{\mathcal{V} }\left(1+\beta_1\right)\right)\left(\frac{1}{3}-\frac{\gamma_0}{\alpha _0 \beta _0}\right) 
+                 = \frac{1}{3}V_{\alpha'up}\left(1-\frac{3\gamma_0}{\alpha _0 \beta _0}\right)\\
+%%%
+    \Theta_{\alpha'up} &= \frac{\rho ^2 \sqrt{s} \xi }{2 \mathcal{V} ^{7/3} \beta _0}\frac{\gamma _0 }{ \alpha _0 \beta_0}
+                                \left(\gamma _1- \alpha _1-\beta_1\right)\\
+%%%
+    \tilde \Theta _{\alpha'}&=\frac{5\sqrt{s} \xi  }{2}
+     \bigg[ \frac{ a^2 A^2 e^{-2 a \tau} }{9 \mathcal{V}^{5/3}}
+           -\frac{ a A e^{-a \tau} W_0  }{3 \mathcal{V}^{7/3}}
+           +\frac{  W_0^2  }{4 \mathcal{V}^3} \\
+       & \hskip 1.5cm
+           +\frac{ A^2 e^{-2 a \tau}  }{4 \mathcal{V}^3}
+           +\frac{ a A^2 e^{-2 a \tau}}{3 \mathcal{V}^{7/3}}
+           -\frac{ A e^{-a \tau}W_0  }{2 \mathcal{V}^3}
+   \bigg](3\alpha_1 + 1).
+  \end{aligned}
+\end{equation}
+
+\end{frame}
+
+\subsection{KKLT à la Nilles.}
+\begin{frame}{\subsecname}
+\label{sec:Nilles}
+En la teoría efectiva propuesta por Choi et al. en \footcite{Nilles},
+el efecto $\bar D3
+-$brana es puesto ``a mano'' a través de un término relacionado con la tensión
+de dicho objeto. Aunque las correcciones $\alpha'$ del potencial de Kähler están
+bien conocidas, hasta donde sabemos, las de las branas no han sido calculadas
+todavía debido a su naturaleza no perturbativa.
+
+Actualmente buscamos otras maneras de incluir las correcciones en el
+superpotencial, o bien de calcular la tensión corregida de la $\bar D3-$brana.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Spurions$%%%%%%%%%%%%%%%%%%%%%%55
+
+\section{Conclusiones.}
+\begin{frame}{\secname}
+\label{sec:conc}
+\begin{itemize}
+  \item La supersimetría es una herramienta muy útil y una teoría bastante
+    interesante por sus propios méritos.
+  \item Pese a lo que uno pueda oír por ahí, es indispensable tener una idea
+    general de esta herramienta para poder estar al día en física teórica de
+    altas energías.
+  \item Aunque no haya todavía nada cierto, muchas de las avenidas que se están
+    siguiendo para explicar fenómenos que todavía no entendemos (materia
+    obscura, gravedad cuántica, etc) requieren de esta simetría, así que
+    conviene estar atentos a lo que pasa en ese lado de la física.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%
+\begin{frame}{¡Gracias por su atención!}
+  \begin{center}
+  \includegraphics[width=0.7\linewidth]{img.jpg}
+  \end{center}
+\end{frame}
+
+\end{document}
+
+%%%%%%%%%%BIBI$%%%%%%%%%%%
+\begin{frame}[allowframebreaks]{References}
+\bibliography{bibICTP}
+\bibliographystyle{plain}
+\end{frame}
